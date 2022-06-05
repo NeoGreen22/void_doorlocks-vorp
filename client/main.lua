@@ -330,7 +330,7 @@ AddEventHandler('bulgar_doorlocks_vorp:setState', function(doorID, state)
 end)
 
 --FixBankDoors / Turn on if you have a problems with Bank Doors.
---[[local door_hashes = {
+local door_hashes = {
     -408139633,     -- Valentine Bank
     -1652509687,    -- Valentine Bank
     -1477943109,    -- Saint Denis Bank
@@ -375,4 +375,4 @@ Citizen.CreateThread(function()
         SetEntityAsMissionEntity(v, true, true)
         DeleteEntity(v)
     end
-end)]]
+end)
