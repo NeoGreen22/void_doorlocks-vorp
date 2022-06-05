@@ -15,6 +15,10 @@ Join the [VORP Community Discord](https://discord.gg/23MPbQ6)
 3. Add `ensure bulgar_doorlocks_vorp` to your `server.cfg` file
 4. Restart your server (unless you have nightly restarts)
 
+ ## Dependency
+ - Vorp Core
+ - Vorp Inventory
+
 ## How-to-configure
 If the Config.useitems is set to True :
 authorizedItem is responsible of locking/unlocking doors
@@ -22,7 +26,6 @@ authorizedJobs will be neglected in the process
 
 If the Config.useitems is set to False :
 Alt button is responsible of locking/unlocking doors (authorizedJob used for this)
-
 
 Using Lockbreaker :
 You can use it whether the Config.useitems is set to True or False
@@ -37,8 +40,4 @@ You can use it whether the Config.useitems is set to True or False
 - exemples are provided in `/config.lua` and `/server/main.lua
 
 
-
- ## Dependency
- - Vorp Core
- - Vorp Inventory
 
