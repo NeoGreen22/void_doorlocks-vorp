@@ -15,9 +15,10 @@ Join the [VORP Community Discord](https://discord.gg/23MPbQ6)
 3. Add `ensure bulgar_doorlocks_vorp` to your `server.cfg` file
 4. Restart your server (unless you have nightly restarts)
 
- ## Dependency
- - Vorp Core
- - Vorp Inventory
+## Dependency
+- [VORP Core](https://github.com/VORPCORE/vorp-core-lua)
+- [VORP Inventory](https://github.com/VORPCORE/vorp_inventory-lua)
+- [VORP Character](https://github.com/VORPCORE/VORP-Character)
 
 ## How-to-configure
 If the Config.useitems is set to True :
