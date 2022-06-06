@@ -1,4 +1,4 @@
-# bulgar_doorlocks_vorp
+# void_doorlocks-vorp
 
 > A RedM Doorlock system for [Vorp Core](http://docs.vorpcore.com:3000/)
 
@@ -11,8 +11,8 @@ Join the [VORP Community Discord](https://discord.gg/23MPbQ6)
 
 ## Installation
 1. Download this repo/codebase
-2. Extract and place `bulgar_doorlocks_vorp` into your `resources` folder
-3. Add `ensure bulgar_doorlocks_vorp` to your `server.cfg` file
+2. Extract and place `void_doorlocks-vorp` into your `resources` folder
+3. Add `ensure void_doorlocks-vorp` to your `server.cfg` file
 4. Restart your server (unless you have nightly restarts)
 
 ## Dependency
