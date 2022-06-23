@@ -6,7 +6,16 @@ server_scripts {
 
 	'server/main.lua'
 }
+
 shared_script 'config.lua'
+
 client_scripts {
 	'client/main.lua'
+}
+
+dependencies { 
+    'vorp_core',
+	'vorp_character',
+    'vorp_inventory',
+    'lockpick'
 }
