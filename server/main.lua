@@ -8,15 +8,15 @@ VorpInv = exports.vorp_inventory:vorp_inventoryApi()
 
 local DoorInfo	= {}
 
-RegisterServerEvent('bulgar_doorlocks_vorp:Load')
-AddEventHandler('bulgar_doorlocks_vorp:Load', function()
+RegisterServerEvent('void_doorlocks:Load')
+AddEventHandler('void_doorlocks:Load', function()
 	for k,v in pairs(DoorInfo) do
-		TriggerClientEvent('bulgar_doorlocks_vorp:setState', -1, v.doorID, v.state)
+		TriggerClientEvent('void_doorlocks:setState', -1, v.doorID, v.state)
 	end
 end)
 
-RegisterServerEvent('bulgar_doorlocks_vorp:updatedoorsv')
-AddEventHandler('bulgar_doorlocks_vorp:updatedoorsv', function(source, doorID, cb)
+RegisterServerEvent('void_doorlocks:updatedoorsv')
+AddEventHandler('void_doorlocks:updatedoorsv', function(source, doorID, cb)
     local _source = source
 	
 	local User = VorpCore.getUser(_source)
@@ -27,24 +27,24 @@ AddEventHandler('bulgar_doorlocks_vorp:updatedoorsv', function(source, doorID, c
 		TriggerClientEvent("vorp:TipRight", _source, "Wrong Key!", 5000)
 		return
 	else 
-		TriggerClientEvent('bulgar_doorlocks_vorp:changedoor', _source, doorID)
+		TriggerClientEvent('void_doorlocks:changedoor', _source, doorID)
 	end
 end)
 
-RegisterServerEvent('bulgar_doorlocks_vorp:updatedooritm')
-AddEventHandler('bulgar_doorlocks_vorp:updatedooritm', function(source, doorID, cb)
+RegisterServerEvent('void_doorlocks:updatedooritm')
+AddEventHandler('void_doorlocks:updatedooritm', function(source, doorID, cb)
     local _source = source
-		TriggerClientEvent('bulgar_doorlocks_vorp:changedoor', _source, doorID)
+		TriggerClientEvent('void_doorlocks:changedoor', _source, doorID)
 end)
 
-RegisterServerEvent('bulgar_doorlocks_vorp:updatedoorbreak')
-AddEventHandler('bulgar_doorlocks_vorp:updatedoorbreak', function(source, doorID, cb)
+RegisterServerEvent('void_doorlocks:updatedoorbreak')
+AddEventHandler('void_doorlocks:updatedoorbreak', function(source, doorID, cb)
     local _source = source
-		TriggerClientEvent('bulgar_doorlocks_vorp:changedoor', _source, doorID)
+		TriggerClientEvent('void_doorlocks:changedoor', _source, doorID)
 end)
 
-RegisterServerEvent('bulgar_doorlocks_vorp:updateState')
-AddEventHandler('bulgar_doorlocks_vorp:updateState', function(doorID, state, cb)	
+RegisterServerEvent('void_doorlocks:updateState')
+AddEventHandler('void_doorlocks:updateState', function(doorID, state, cb)	
 	if type(doorID) ~= 'number' then
 		return
 	end
@@ -54,11 +54,11 @@ AddEventHandler('bulgar_doorlocks_vorp:updateState', function(doorID, state, cb)
 		state = state
 	}
 
-	TriggerClientEvent('bulgar_doorlocks_vorp:setState', -1, doorID, state)
+	TriggerClientEvent('void_doorlocks:setState', -1, doorID, state)
 end)
 
-RegisterServerEvent('bulgar_doorlocks_vorp:lockbreaker:break')
-AddEventHandler('bulgar_doorlocks_vorp:lockbreaker:break', function()
+RegisterServerEvent('void_doorlocks:lockbreaker:break')
+AddEventHandler('void_doorlocks:lockbreaker:break', function()
     local _source = source
 	local user = VorpCore.getUser(_source).getUsedCharacter
 	VorpInv.subItem(_source, "consumable_lock_breaker", 1)
@@ -77,22 +77,22 @@ end
 
 VorpInv.RegisterUsableItem("consumable_lock_breaker", function(data)
 	VorpInv.CloseInv(data.source)
-	TriggerClientEvent("bulgar_doorlocks_vorp:opendoor", data.source, true)
+	TriggerClientEvent("void_doorlocks:opendoor", data.source, true)
 end)
 ----------------- Registre new keys below------------------
 
 -- New Key Example
 --VorpInv.RegisterUsableItem("itemname", function(data)
 	--VorpInv.CloseInv(data.source)
-	--TriggerClientEvent("bulgar_doorlocks_vorp:opendoor", data.source, false, 'itemname')
+	--TriggerClientEvent("void_doorlocks:opendoor", data.source, false, 'itemname')
 --end)
 
 VorpInv.RegisterUsableItem("provision_jail_keys", function(data)
 	VorpInv.CloseInv(data.source)
-	TriggerClientEvent("bulgar_doorlocks_vorp:opendoor", data.source, false, 'provision_jail_keys')
+	TriggerClientEvent("void_doorlocks:opendoor", data.source, false, 'provision_jail_keys')
 end)
 
 VorpInv.RegisterUsableItem("doctor_keys", function(data)
 	VorpInv.CloseInv(data.source)
-	TriggerClientEvent("bulgar_doorlocks_vorp:opendoor", data.source, false, 'doctor_keys')
+	TriggerClientEvent("void_doorlocks:opendoor", data.source, false, 'doctor_keys')
 end)
