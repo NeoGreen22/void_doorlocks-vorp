@@ -15,7 +15,7 @@ client_scripts {
 
 dependencies { 
     'vorp_core',
-	'vorp_character',
+    'vorp_character',
     'vorp_inventory',
     'lockpick'
 }
