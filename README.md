@@ -19,6 +19,7 @@ Join the [VORP Community Discord](https://discord.gg/23MPbQ6)
 - [VORP Core](https://github.com/VORPCORE/vorp-core-lua)
 - [VORP Inventory](https://github.com/VORPCORE/vorp_inventory-lua)
 - [VORP Character](https://github.com/VORPCORE/VORP-Character)
+- [lockpick](https://github.com/VoidZero69/lockpick)
 
 ## How-to-configure
 If the Config.useitems is set to True :
