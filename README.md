@@ -37,6 +37,7 @@ You can use it whether the Config.useitems is set to True or False
   - This is a modification to [bulgar_doorlocks_vorp] (Made by Bulgar)
 
 ## Do not forget to:
+- ensure this resource after its dependencies 
 - if you're adding a new key item you need to register it in the server side
 - add the item in db
 - exemples are provided in `/config.lua` and `/server/main.lua
