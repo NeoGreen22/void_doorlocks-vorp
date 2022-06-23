@@ -2,7 +2,7 @@ local lockbreaker = false
 
 RegisterNetEvent("vorp:SelectedCharacter")
 AddEventHandler("vorp:SelectedCharacter", function(charid)
-    TriggerServerEvent('bulgar_doorlocks_vorp:Load')
+    TriggerServerEvent('void_doorlocks:Load')
 end)
 
 Citizen.CreateThread(function()
@@ -118,7 +118,7 @@ function makeEntityFaceEntity( entity1, coords , k)
                 DeleteObject(prop)
                 RemoveAnimDict("script_common@jail_cell@unlock@key")
                 key = false
-                TriggerEvent("bulgar_doorlocks_vorp:updatedoor", GetPlayerServerId(PlayerId()), k)
+                TriggerEvent("void_doorlocks:updatedoor", GetPlayerServerId(PlayerId()), k)
                 break
             end
         end
@@ -163,15 +163,15 @@ function makeEntityFaceEntity2( entity1, coords , k)
                 DeleteObject(prop)
                 RemoveAnimDict("script_common@jail_cell@unlock@key")
                 key = false
-                TriggerServerEvent("bulgar_doorlocks_vorp:updatedooritm", GetPlayerServerId(PlayerId()), k, lockbreak, function(cb) end)
+                TriggerServerEvent("void_doorlocks:updatedooritm", GetPlayerServerId(PlayerId()), k, lockbreak, function(cb) end)
                 break
             end
         end
     end
 end
 
-RegisterNetEvent('bulgar_doorlocks_vorp:opendoor')
-AddEventHandler('bulgar_doorlocks_vorp:opendoor', function(lockbreak, itm)
+RegisterNetEvent('void_doorlocks:opendoor')
+AddEventHandler('void_doorlocks:opendoor', function(lockbreak, itm)
     local playerCoords = GetEntityCoords(PlayerPedId())
     for k,doorID in ipairs(Config.DoorList) do
         local distance
@@ -238,7 +238,7 @@ AddEventHandler('bulgar_doorlocks_vorp:opendoor', function(lockbreak, itm)
             
         elseif distance <= maxDistance and lockbreak == true and doorID.locked == true and doorID.canlockbreak then
             
-            TriggerEvent('bulgar_doorlocks_vorp:updatedoor', GetPlayerServerId(PlayerId()), k, lockbreak)
+            TriggerEvent('void_doorlocks:updatedoor', GetPlayerServerId(PlayerId()), k, lockbreak)
         elseif distance <= maxDistance and lockbreak == true and doorID.locked == true and doorID.canlockbreak == false then
 
             TriggerEvent("vorp:TipBottom", "You can't lockbreak this door !", 2000)
@@ -246,66 +246,39 @@ AddEventHandler('bulgar_doorlocks_vorp:opendoor', function(lockbreak, itm)
     end
 end)
 
-RegisterNetEvent('bulgar_doorlocks_vorp:updatedoor')
-AddEventHandler('bulgar_doorlocks_vorp:updatedoor', function(source, door, lockbreak)
+RegisterNetEvent('void_doorlocks:updatedoor')
+AddEventHandler('void_doorlocks:updatedoor', function(source, door, lockbreak)
     if not lockbreak then
-        TriggerServerEvent("bulgar_doorlocks_vorp:updatedoorsv", source, door, function(cb) end)
+        TriggerServerEvent("void_doorlocks:updatedoorsv", source, door, function(cb) end)
     else
-        local chance = math.random(1,100)
+        --local chance = math.random(1,100)
+        local ped = PlayerPedId()
         local isDead = IsPedDeadOrDying(PlayerPedId())
         if not isDead then
-            if chance < 85 then
-                local ped = PlayerPedId()
-                ClearPedTasks(ped)
-                Citizen.Wait(100)
-                local anim = "mini_games@story@mud5@cracksafe_look_at_dial@med_r@ped"
-                local idle = "base_idle"
-                local lr = "left_to_right"
-                local rl = "right_to_left"
+            local minigame = exports['lockpick']:lockpick()
+            if not minigame then
+                TriggerServerEvent("void_doorlocks:lockbreaker:break")
+            else
+                local anim = "mini_games@story@mud5@cracksafe_look_at_dial@small_r@ped"
+                local open = "open"
                 RequestAnimDict(anim)
                 while not HasAnimDictLoaded(anim) do
                     Citizen.Wait(50)
                 end
-                
-                TaskPlayAnim(PlayerPedId(), anim, idle, 8.0, -8.0, -1, 32, 0, false, false, false)
+                TaskPlayAnim(PlayerPedId(), anim, open, 8.0, -8.0, -1, 32, 0, false, false, false)
                 Citizen.Wait(1250)
-                TaskPlayAnim(PlayerPedId(), anim, lr, 8.0, -8.0, -1, 32, 0, false, false, false)
-                Citizen.Wait(325)
-                TaskPlayAnim(PlayerPedId(), anim, idle, 8.0, -8.0, -1, 32, 0, false, false, false)
-                Citizen.Wait(1250)
-                TaskPlayAnim(PlayerPedId(), anim, rl, 8.0, -8.0, -1, 32, 0, false, false, false)
-                Citizen.Wait(325)
-                repeat
-                    TriggerEvent("bulgar_doorlocks_vorp:updatedoor", source, door, lockbreak)
-                until(chance)
-            end
-            if chance >= 85 then
-                local breakChance = math.random(1,10)
-                if breakChance < 6 then
-                    TriggerServerEvent("bulgar_doorlocks_vorp:lockbreaker:break")
-                else
-                    local ped = PlayerPedId()
-                    local anim = "mini_games@story@mud5@cracksafe_look_at_dial@small_r@ped"
-                    local open = "open"
-                    RequestAnimDict(anim)
-                    while not HasAnimDictLoaded(anim) do
-                        Citizen.Wait(50)
-                    end
-                    TaskPlayAnim(PlayerPedId(), anim, open, 8.0, -8.0, -1, 32, 0, false, false, false)
-                    Citizen.Wait(1250)
-                    TriggerServerEvent("bulgar_doorlocks_vorp:updatedoorbreak", source, door, function(cb) end)
-                end
+                TriggerServerEvent("void_doorlocks:updatedoorbreak", source, door, function(cb) end)
             end
         else
             return
         end
     end
 end)
-RegisterNetEvent('bulgar_doorlocks_vorp:changedoor')
-AddEventHandler('bulgar_doorlocks_vorp:changedoor', function(doorID)
+RegisterNetEvent('void_doorlocks:changedoor')
+AddEventHandler('void_doorlocks:changedoor', function(doorID)
     local name = Config.DoorList[doorID]
     name.locked = not name.locked
-    TriggerServerEvent('bulgar_doorlocks_vorp:updateState', doorID, name.locked, function(cb) end)
+    TriggerServerEvent('void_doorlocks:updateState', doorID, name.locked, function(cb) end)
 end)
 
 function DrawText3D(x, y, z, text , state)
@@ -324,8 +297,8 @@ function DrawText3D(x, y, z, text , state)
     end
 end
 
-RegisterNetEvent('bulgar_doorlocks_vorp:setState')
-AddEventHandler('bulgar_doorlocks_vorp:setState', function(doorID, state)
+RegisterNetEvent('void_doorlocks:setState')
+AddEventHandler('void_doorlocks:setState', function(doorID, state)
     Config.DoorList[doorID].locked = state
 end)
 
