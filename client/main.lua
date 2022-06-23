@@ -251,7 +251,6 @@ AddEventHandler('void_doorlocks:updatedoor', function(source, door, lockbreak)
     if not lockbreak then
         TriggerServerEvent("void_doorlocks:updatedoorsv", source, door, function(cb) end)
     else
-        --local chance = math.random(1,100)
         local ped = PlayerPedId()
         local isDead = IsPedDeadOrDying(PlayerPedId())
         if not isDead then
@@ -265,7 +264,7 @@ AddEventHandler('void_doorlocks:updatedoor', function(source, door, lockbreak)
                 while not HasAnimDictLoaded(anim) do
                     Citizen.Wait(50)
                 end
-                TaskPlayAnim(PlayerPedId(), anim, open, 8.0, -8.0, -1, 32, 0, false, false, false)
+                TaskPlayAnim(ped, anim, open, 8.0, -8.0, -1, 32, 0, false, false, false)
                 Citizen.Wait(1250)
                 TriggerServerEvent("void_doorlocks:updatedoorbreak", source, door, function(cb) end)
             end
@@ -274,6 +273,7 @@ AddEventHandler('void_doorlocks:updatedoor', function(source, door, lockbreak)
         end
     end
 end)
+
 RegisterNetEvent('void_doorlocks:changedoor')
 AddEventHandler('void_doorlocks:changedoor', function(doorID)
     local name = Config.DoorList[doorID]
