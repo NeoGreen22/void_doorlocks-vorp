@@ -1,7 +1,7 @@
 local lockbreaker = false
 
-RegisterNetEvent("vorp:SelectedCharacter")
-AddEventHandler("vorp:SelectedCharacter", function(charid)
+RegisterNetEvent("gum:SelectedCharacter")
+AddEventHandler("gum:SelectedCharacter", function(charid)
     TriggerServerEvent('void_doorlocks:Load')
 end)
 
