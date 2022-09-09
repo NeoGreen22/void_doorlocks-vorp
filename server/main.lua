@@ -1,10 +1,10 @@
-local VorpCore = {}
-
+local gumCore = {}
 TriggerEvent("getCore",function(core)
-    VorpCore = core
+    gumCore = core
 end)
 
-VorpInv = exports.vorp_inventory:vorp_inventoryApi()
+Inventory = exports.gum_inventory:gum_inventoryApi()
+gum = exports.gum_core:gumAPI()
 
 local DoorInfo	= {}
 
@@ -19,7 +19,7 @@ RegisterServerEvent('void_doorlocks:updatedoorsv')
 AddEventHandler('void_doorlocks:updatedoorsv', function(source, doorID, cb)
     local _source = source
 	
-	local User = VorpCore.getUser(_source)
+	local User = gumCore.getUser(_source)
 	local Character = User.getUsedCharacter
 	local job = Character.job
 	
@@ -60,8 +60,8 @@ end)
 RegisterServerEvent('void_doorlocks:lockbreaker:break')
 AddEventHandler('void_doorlocks:lockbreaker:break', function()
     local _source = source
-	local user = VorpCore.getUser(_source).getUsedCharacter
-	VorpInv.subItem(_source, "consumable_lock_breaker", 1)
+	local user = gumCore.getUser(_source).getUsedCharacter
+	Inventory.subItem(_source, "consumable_lock_breaker", 1)
 	TriggerClientEvent("vorp:TipBottom", _source, "God Damn !, My Lockbreaker broke!", 2000)
 end)
 
@@ -75,8 +75,8 @@ function IsAuthorized(jobName, doorID)
 end
 
 
-VorpInv.RegisterUsableItem("consumable_lock_breaker", function(data)
-	VorpInv.CloseInv(data.source)
+Inventory.RegisterUsableItem("consumable_lock_breaker", function(data)
+	Inventory.CloseInv(data.source)
 	TriggerClientEvent("void_doorlocks:opendoor", data.source, true)
 end)
 ----------------- Registre new keys below------------------
@@ -87,12 +87,12 @@ end)
 	--TriggerClientEvent("void_doorlocks:opendoor", data.source, false, 'itemname')
 --end)
 
-VorpInv.RegisterUsableItem("provision_jail_keys", function(data)
-	VorpInv.CloseInv(data.source)
+Inventory.RegisterUsableItem("provision_jail_keys", function(data)
+	Inventory.CloseInv(data.source)
 	TriggerClientEvent("void_doorlocks:opendoor", data.source, false, 'provision_jail_keys')
 end)
 
-VorpInv.RegisterUsableItem("doctor_keys", function(data)
-	VorpInv.CloseInv(data.source)
+Inventory.RegisterUsableItem("doctor_keys", function(data)
+	Inventory.CloseInv(data.source)
 	TriggerClientEvent("void_doorlocks:opendoor", data.source, false, 'doctor_keys')
 end)
