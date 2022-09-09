@@ -1,8 +1,6 @@
-# void_doorlocks-vorp
+# void_doorlocks-vorp Converted to Gum Framework
 
-> A RedM Doorlock system for [Vorp Core](http://docs.vorpcore.com:3000/)
 
-Join the [VORP Community Discord](https://discord.gg/23MPbQ6)
 
 ## Features
 1. Toggle between Using item or Alt button to open doors
@@ -16,9 +14,7 @@ Join the [VORP Community Discord](https://discord.gg/23MPbQ6)
 4. Restart your server (unless you have nightly restarts)
 
 ## Dependency
-- [VORP Core](https://github.com/VORPCORE/vorp-core-lua)
-- [VORP Inventory](https://github.com/VORPCORE/vorp_inventory-lua)
-- [VORP Character](https://github.com/VORPCORE/VORP-Character)
+
 - [lockpick](https://github.com/VoidZero69/lockpick)
 
 ## How-to-configure
